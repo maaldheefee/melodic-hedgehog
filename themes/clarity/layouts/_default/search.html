@@ -1,0 +1,69 @@
+{{ define "main" }}
+<div class="wrap content">
+    
+    <article class="post_content">
+        <section id="search-form-wrapper" class="p-3 p-lg-5 d-flex flex-column">
+            <div class="my-auto">
+                <!-- <h1>{{ .Title }}</h1> -->
+                <a href="/search/"><img src="/images/aicurious_search.png" style="width: 20rem"></a>
+                <p style="text-align: center;">Search for posts and notes<br>
+                    <a href="/categories/">&gt; Browse by Categories.</a><br>
+                    <a href="/tags/">&gt; Browse by Tags.</a></p>
+                <form id="search-form" action="{{ "search" | absURL }}">
+                    <input id="search-query" placeholder="Type here to search" name="s" />
+                    <button id="search-btn" type="submit">Search</button>
+                </form>
+                <img id="loading-icon" src="/images/loading.svg" alt="loading" style="width: 4rem; height: 4rem;float: left; display: none;">
+                <div id="search-results">
+                </div>
+                <div style="display: none;">Search database version: <span id="search-db-version">{{ now.Unix }}</span></div>
+            </div>
+        </section>
+        <!-- this template is sucked in by search.js and appended to the search-results div above. So editing here will adjust style -->
+        <script id="search-result-template" type="text/x-js-template">
+            <div id="summary-${key}">
+              <h4><a href="${link}">${title}</a></h4>
+              <p>${snippet}</p>
+              <!-- <p>${score}</p> -->
+              <p>
+                ${ isset tags }<b>Tags:</b> ${tags}, ${ end }
+                ${ isset categories }<b>Categories:</b> ${categories}${ end }
+              </p>
+            </div>
+        </script>
+
+        <style>
+            #search-form {
+                font-size: 1rem;
+                display: flex;
+                width: 30rem;
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            #search-form input {
+                width: auto;
+                flex-grow: 2;
+                margin: 0.2rem;
+            }
+            #search-form button {
+                max-width: 5rem;
+                flex-grow: 1;
+                margin: 0.2rem;
+            }
+            .add-margin-top-search-form {
+                margin-top: 10%;
+            }
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mark.js@8.11.1/dist/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+        <!-- NOTICE: Different versions of Fuse.js provide different search results -->
+        <!-- I have tried multiple version and choose this version for its results. Other versions have different sorting algorithms or may not work well with Vietnamese (maybe other languages too?) -->
+        <!-- If you satisfy with the result, please don't change the version of Fuse.js here. -->
+        <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.6.1/dist/fuse.min.js"></script>
+
+        <script src="{{ "js/search.js" | absURL }}"></script>
+    </article>
+</div>
+{{ end }}

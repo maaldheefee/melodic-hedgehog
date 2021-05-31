@@ -1,0 +1,49 @@
+{{- define "main" }}
+{{- $scratch := newScratch }}
+{{- if isset .Params "image" }}
+  {{- $scratch.Set "image" .Params.image }}
+{{- else }}
+  {{ $scratch.Set "image" .Site.Params.fallBackOgImage }}
+{{- end }}
+{{- $image := $scratch.Get "image" }}
+{{- $bg := (path.Join "images" $image | absLangURL) }}
+{{- $show_toc := (and .Params.toc (gt (len .TableOfContents) 80)) }}
+
+<div class="wrap content {{ if $show_toc }}grid-inverse{{- else }}without-toc{{ end }} {{ if eq .Type "posts" }}type-post{{ end }}">
+  <article class="post_content">
+    {{- partial "i18nlist" . }}
+    <h1 class="post_title">{{ .Title }}</h1>
+    {{- partial "post-meta" . }}
+    {{ partial "share" . }}
+    {{ with .Params.featureImage }}
+    <img src="{{ . }}" class="image_featured">
+    {{ end }}
+    <div class="js-toc-content">
+    {{- .Content }}
+    </div>
+    {{ if eq .Type "posts" }}
+    <div style="border: 2px solid #efefef; padding: 2rem; margin-top: 2rem;">
+      {{ partial "subscriber-form" . }}
+    </div>
+    {{ if and ( ne .Site.Params.comment false ) ( ne .Params.comment false ) }}
+      {{ partial "comments" . }}
+    {{ end }}
+    {{ partial "related-posts" . }}
+    {{ end }}
+  </article>
+
+  {{ if $show_toc }}
+  <aside class="sidebar">
+    <section class="sidebar_inner">
+      
+      <div class="sticky-toc">
+        <div class="js-toc"></div>
+      </div>
+      
+      <!-- {{ .TableOfContents }} -->
+    </section>
+  </aside>
+  {{ end }}
+
+</div>
+{{- end }}

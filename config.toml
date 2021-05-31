@@ -1,0 +1,78 @@
+baseurl = "https://aicurious.io/"
+title = "HugoCurious"
+author = "Viet-Anh Nguyen"
+copyright = "Copyright © 2016-2020, Viet-Anh Nguyen; all rights reserved."
+paginate = 8
+PaginatePath = "/posts/"
+theme = "clarity"
+DefaultContentLanguage = "en"
+themesDir = "themes"
+baseURL = ""
+publishDir = "public"
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+series = "series"
+
+[markup.goldmark.renderer]
+hardWraps = false
+unsafe = true
+xhtml = false
+
+[markup.goldmark.extensions]
+typographer = false
+
+[markup.highlight]
+codeFences = true
+guessSyntax = false
+hl_Lines = "--"
+lineNoStart = 1
+lineNos = true
+lineNumbersInTable = false
+noClasses = false
+tabWidth = 2
+
+[permalinks]
+page = "/:slug/"
+posts = "/:slug/"
+notes = "/:slug/"
+
+[params]
+author = "Viet-Anh Nguyen"
+twitter = "@vietanhdev"
+largeTwitterCard = false
+introDescription = "Building AI-powered systems. AI modeling and deployment skills for developers, students, and researchers."
+description = "Building AI-powered systems. AI modeling and deployment skills for developers, students, and researchers."
+searchTypes = [ "posts", "notes" ]
+codeLineNumbers = true
+ga_analytics = "UA-176023093-1"
+numberOfTagsShown = 8
+fallBackOgImage = "images/thumbnail.jpg"
+mainSections = [ "posts" ]
+centerLogo = false
+logo = "logo.png"
+mobileNavigation = "right"
+enforceLightMode = true
+numberOfRecentPosts = 8
+numberOfFeaturedPosts = 8
+talkyardServerUrl = "https://comments-for-aicurious-io.talkyard.net"
+talkyardScriptUrl = "https://c1.ty-cdn.net/-/talkyard-comments.min.js"
+contactFormSubmitUrl = "https://formspree.io/xaypalea"
+mailChimpUrl = "https://vietanhdev.us13.list-manage.com/subscribe/post?u=c5f9d88238b4c0ec0106fe459&amp;id=e74e121dc8"
+
+[related]
+includeNewer = true
+threshold = 10
+toLower = false
+
+  [[related.indices]]
+  name = "keywords"
+  weight = 100
+
+  [[related.indices]]
+  name = "date"
+  weight = 10
+
+[outputs]
+home = [ "HTML", "RSS", "JSON" ]

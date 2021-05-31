@@ -1,0 +1,10 @@
+{{ $.Scratch.Set "bl_author" false }}
+
+{{ if .IsNamedParams }}
+  {{ $.Scratch.Set "bl_author" (.Get "author") }}
+{{ end }}
+
+<blockquote>
+  {{ .Inner | markdownify }}
+  <span>̶ &nbsp;{{ with $.Scratch.Get "bl_author" }}{{ . }}{{ end }}.</span>
+</blockquote>
